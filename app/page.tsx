@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Bot, Code2, Cpu, Github, Globe, Send, Terminal, Sparkles } from "lucide-react";
+import { Bot, Code2, Cpu, Github, Globe, Send, Terminal, Sparkles, FolderGit2, ExternalLink } from "lucide-react";
 
 export default function Portfolio() {
   const [input, setInput] = useState("");
@@ -25,6 +25,31 @@ export default function Portfolio() {
     }
     setLoading(false);
   };
+
+  // Platzhalter-Daten für deine Projekte
+  const projects = [
+    {
+      title: "KI-Portfolio Core",
+      description: "Mein persönliches Portfolio mit integriertem digitalen KI-Zwilling, angetrieben von Google Gemini 3.",
+      tech: ["Next.js", "Python", "Gemini API", "Tailwind"],
+      gradient: "from-blue-600/20 to-purple-600/20",
+      link: "#"
+    },
+    {
+      title: "Python Data Scraper",
+      description: "Ein automatisiertes Tool zur Extraktion und Analyse von Web-Daten mit intelligenter Vorverarbeitung.",
+      tech: ["Python", "BeautifulSoup", "Pandas"],
+      gradient: "from-green-600/20 to-emerald-600/20",
+      link: "#"
+    },
+    {
+      title: "Vision AI Bot",
+      description: "Discord-Bot, der Bilder analysiert und beschreibt, basierend auf modernen Machine-Learning-Modellen.",
+      tech: ["Python", "Discord.py", "OpenCV"],
+      gradient: "from-orange-600/20 to-red-600/20",
+      link: "#"
+    }
+  ];
 
   return (
     <div className="min-h-screen bg-[#030303] text-gray-100 selection:bg-purple-500/30 relative overflow-hidden font-sans">
@@ -62,9 +87,10 @@ export default function Portfolio() {
         </motion.div>
       </section>
 
-      <main className="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-8 pb-24 relative z-10">
+      {/* Main Grid: Skills & Chatbot */}
+      <main className="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-8 pb-20 relative z-10">
         
-        {/* Left Column: Stats & Tech Stack (Takes up 4 columns on large screens) */}
+        {/* Left Column: Stats & Tech Stack */}
         <div className="lg:col-span-4 space-y-6">
           <motion.div 
             initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}
@@ -95,14 +121,12 @@ export default function Portfolio() {
           </motion.div>
         </div>
 
-        {/* Right Column: AI Chatbot (Takes up 8 columns) */}
+        {/* Right Column: AI Chatbot */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}
           className="lg:col-span-8"
         >
           <div className="bg-[#0a0a0a] border border-white/10 rounded-2xl shadow-2xl overflow-hidden ring-1 ring-white/5">
-            
-            {/* Fake Mac Window Header */}
             <div className="bg-white/5 px-4 py-3 flex items-center justify-between border-b border-white/5">
               <div className="flex gap-2">
                 <div className="w-3 h-3 rounded-full bg-red-500/80" />
@@ -112,7 +136,7 @@ export default function Portfolio() {
               <div className="text-xs font-mono text-gray-500 flex items-center gap-2">
                 <Terminal size={14} /> jona-ai-core.exe
               </div>
-              <div className="w-12" /> {/* Spacer for centering */}
+              <div className="w-12" />
             </div>
 
             <div className="p-6 md:p-8">
@@ -149,7 +173,6 @@ export default function Portfolio() {
                 </button>
               </div>
 
-              {/* AI Response Box */}
               {response && (
                 <motion.div 
                   initial={{ opacity: 0, y: 10 }} 
@@ -166,6 +189,62 @@ export default function Portfolio() {
           </div>
         </motion.div>
       </main>
+
+      {/* Projects Section */}
+      <section className="max-w-6xl mx-auto px-6 pb-24 relative z-10">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+          className="flex items-center gap-3 mb-10"
+        >
+          <FolderGit2 className="text-purple-400" size={28} />
+          <h2 className="text-3xl font-bold text-gray-100">Featured Projects</h2>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {projects.map((project, idx) => (
+            <motion.div 
+              key={idx}
+              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: idx * 0.1 }}
+              className="group bg-white/[0.02] border border-white/5 rounded-2xl overflow-hidden hover:border-purple-500/30 transition-all hover:shadow-[0_0_30px_-15px_rgba(168,85,247,0.2)] flex flex-col"
+            >
+              {/* Image Placeholder */}
+              <div className={`h-40 w-full bg-gradient-to-br ${project.gradient} border-b border-white/5 relative overflow-hidden flex items-center justify-center`}>
+                <Code2 size={48} className="text-white/20 group-hover:scale-110 transition-transform duration-500" />
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
+              </div>
+              
+              {/* Content */}
+              <div className="p-6 flex-1 flex flex-col">
+                <div className="flex justify-between items-start mb-4">
+                  <h3 className="font-bold text-lg text-gray-100 group-hover:text-purple-400 transition-colors">{project.title}</h3>
+                  <a href={project.link} className="text-gray-500 hover:text-white transition-colors">
+                    <ExternalLink size={18} />
+                  </a>
+                </div>
+                <p className="text-sm text-gray-400 leading-relaxed mb-6 flex-1">
+                  {project.description}
+                </p>
+                <div className="flex flex-wrap gap-2 mt-auto">
+                  {project.tech.map((t) => (
+                    <span key={t} className="text-[10px] uppercase tracking-wider px-2 py-1 bg-white/5 rounded-md text-gray-400">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="border-t border-white/5 py-10 text-center relative z-10">
+        <div className="flex justify-center gap-6 mb-4 text-gray-500">
+          <a href="https://github.com/noackjona-hash" className="hover:text-white transition-colors"><Github size={20} /></a>
+          <a href="#" className="hover:text-white transition-colors"><Globe size={20} /></a>
+        </div>
+        <p className="text-xs text-gray-600">© 2026 Jona Noack. Built with Next.js & Tailwind CSS.</p>
+      </footer>
     </div>
   );
 }

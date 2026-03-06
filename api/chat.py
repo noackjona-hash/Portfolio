@@ -5,7 +5,7 @@ import json
 
 # API Key aus der .env.local laden
 genai.configure(api_key=os.environ.get("GEMINI_API_KEY"))
-model = genai.GenerativeModel('gemini-3-flash')
+model = genai.GenerativeModel('gemini-3-flash-preview')
 
 class handler(BaseHTTPRequestHandler):
     def do_POST(self):
